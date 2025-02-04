@@ -25,31 +25,52 @@
 | CLI-HQ | Альт рабочая станция 10 | cli-hq.au.team |
 | CLI | Альт рабочая станция 10 | cli |
 ## 1. Базовая настройка
-1) На всех устройства (кроме FW-DT) создайте пользователя sshuser с паролем P@ssw0rd
-  1. Пользователь sshuser должен иметь возможность запуска утилиты sudo без дополнительной аутентификации.
-  2. На маршрутизаторах пользователь sshuser должен обладать максимальными привилегиями.
+### R-HQ R-DT 
   <details>
     <summary>КЛИКАБЕЛЬНО</summary>
-### R-HQ R-DT
 
 Для того чтобы посмотреть какие адаптеры подключены к устройству прописываем:
 ```
 ip link show
 ```
+Далее необходимо создать директорию по пути
+```
+mkdir /etc/net/ifaces/
+```
+На адаптере для локальной сети файл "options" должен выглядить так:
+![image](https://github.com/user-attachments/assets/39004dc1-d143-4a41-939c-0b4112b226e2)
+Для выхода в интернет так:
+![image](https://github.com/user-attachments/assets/9054222e-80d8-4b08-af23-5fe98b2b1188)
+
+Для того чтобы при перезапуске не сбрасывался адреса устройства необходимо в папке /etc/systemd/system создать файл сервиса:
+1) network-restart.timer:
+```
+[Unit]
+Description=Restart Network Timer
+
+[Timer]
+OnStartupSec=10s
+Unit=network-restart.service
+
+[Install]
+WantedBy=timers.target
+```
+2) network-restart.service:
+```
+[Unit]
+Description=Restart Network Service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/systemctl restart network
+
+[Install]
+WantedBy=multi-user.target
+```
+Чтобы запустить службу прописываем:
+```
+systemctl enable network-restart.timer\
+```
+
   </details>
    
-### RTR-HQ
-
-Полное доменное имя:
-```
-config
-hostname rtr-hq.company.prof
-do commit
-do confirm
-```
-
-Команды для просмотра интерфейсов:
-```
-sh ip int
-sh int stat
-```
