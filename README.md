@@ -7,7 +7,7 @@
 Доступ к ISP вы не имеете!!
  
 | Название устройства | ОС |
-|:-|:-|
+|:-|:-|:-|:-|
 | R-DT | EcoRouter | r-dt.au.team |
 | FW-DT | Ideco ngfw | fw-dt |
 | ADMIN-DT | Альт рабочая станция 10 | admin-dt.au.team |
