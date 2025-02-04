@@ -6,8 +6,8 @@
 ![image](https://github.com/user-attachments/assets/7df8d97e-b954-424d-930e-9664f50d9825)
 Доступ к ISP вы не имеете!!
  
-| Название устройства | ОС |
-|:-|:-|
+| Название устройства | ОС | FQDN |
+|:-|:-|:-|
 | R-DT | EcoRouter | r-dt.au.team |
 | FW-DT | Ideco ngfw | fw-dt |
 | ADMIN-DT | Альт рабочая станция 10 | admin-dt.au.team |
