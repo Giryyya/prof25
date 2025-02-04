@@ -37,3 +37,18 @@
         ```
     </details>
    
+### RTR-HQ
+
+Полное доменное имя:
+```
+config
+hostname rtr-hq.company.prof
+do commit
+do confirm
+```
+
+Команды для просмотра интерфейсов:
+```
+sh ip int
+sh int stat
+```
