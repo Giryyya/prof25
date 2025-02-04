@@ -37,9 +37,9 @@ ip link show
 ```
 mkdir /etc/net/ifaces/
 ```
-На адаптере для локальной сети файл "options" должен выглядить так:
+1) На адаптере для локальной сети файл "options" должен выглядить так:
 ![image](https://github.com/user-attachments/assets/39004dc1-d143-4a41-939c-0b4112b226e2)
-Для выхода в интернет так:
+2) Для выхода в интернет так:
 ![image](https://github.com/user-attachments/assets/9054222e-80d8-4b08-af23-5fe98b2b1188)
 
 Для того чтобы при перезапуске не сбрасывался адреса устройства необходимо в папке /etc/systemd/system создать файл сервиса:
@@ -69,7 +69,7 @@ WantedBy=multi-user.target
 ```
 Чтобы запустить службу прописываем:
 ```
-systemctl enable network-restart.timer\
+systemctl enable network-restart.timer
 ```
 
   </details>
