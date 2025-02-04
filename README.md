@@ -25,9 +25,10 @@
 | CLI-HQ | Альт рабочая станция 10 | cli-hq.au.team |
 | CLI | Альт рабочая станция 10 | cli |
 ## 1. Базовая настройка
-### R-HQ R-DT 
+### R-HQ R-DT
+## Настройка адаптеров
   <details>
-    <summary>КЛИКАБЕЛЬНО</summary>
+    <summary>КЛИК</summary>
 
 Для того чтобы посмотреть какие адаптеры подключены к устройству прописываем:
 ```
@@ -77,4 +78,27 @@ systemctl enable network-restart.timer
 ```
 
   </details>
-   
+  
+## Созданаие пользователя
+
+  <details>
+    <summary>КЛИК</summary>
+Для того чтобы создать пользователя прописываем:
+```
+adduser sshuser
+```
+Задаем пароль:
+```
+passwd sshuser
+```
+Добавляем в группу sudo:
+```
+usermod -aG wheel sshuser
+```
+Для того чтобы при выполнении команды sudo не запрашивался пароль необходимо отредактировать файл /etc/sudoers. Вписываем:
+```
+sshuser ALL=(ALL) NOPASSWD: ALL
+```
+
+
+  </details>
