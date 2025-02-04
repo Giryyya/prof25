@@ -1,5 +1,7 @@
-123123312
-asfasf
-![image](https://github.com/user-attachments/assets/73161b61-fe0a-4ec2-923b-266b39c01f8e)
+Модуль Б.  (Настройка технических и программных средств информационно-коммуникационных систем) (инвариант)
 
-asdasdas
+ 
+Рисунок 1 – Схема сети модуля Б
+![image](https://github.com/user-attachments/assets/7df8d97e-b954-424d-930e-9664f50d9825)
+Доступ к ISP вы не имеете!!
+ 
