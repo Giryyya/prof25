@@ -80,25 +80,25 @@ systemctl enable network-restart.timer
   </details>
   
 # Созданаие пользователя
-
   <details>
     <summary>КЛИК</summary>
-    Для того чтобы создать пользователя прописываем:
-    ```
-    adduser sshuser
-    ```
-    Задаем пароль:
-    ```
-    passwd sshuser
-    ```
-    Добавляем в группу sudo:
-    ```
-    usermod -aG wheel sshuser
-    ```
-    Для того чтобы при выполнении команды sudo не запрашивался пароль необходимо отредактировать файл /etc/sudoers. Вписываем:
-    ```
-    sshuser ALL=(ALL) NOPASSWD: ALL
-    ```
+    
+Для того чтобы создать пользователя прописываем:
+```
+adduser sshuser
+```
+Задаем пароль:
+```
+passwd sshuser
+```
+Добавляем в группу sudo:
+```
+usermod -aG wheel sshuser
+```
+Для того чтобы при выполнении команды sudo не запрашивался пароль необходимо отредактировать файл /etc/sudoers. Вписываем:
+```
+sshuser ALL=(ALL) NOPASSWD: ALL
+```
 
 
   </details>
