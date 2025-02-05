@@ -271,3 +271,55 @@ systemctl start ospfd zebra
 ```
 
 </details>
+
+## Настройка DNS
+<details>
+    <summary>НАЖМИ</summary>
+
+Для начала необходимо отредактировать файл /etc/bind/options.conf:
+```
+listen-on { any; };
+allow-query { any; };
+allow-transfer { 192.168.33.254; };
+```
+Включаем resolv:
+```
+nano /etc/net/ifaces/ens33/resolv.conf
+```
+```
+systemctl restart network
+```
+Автозагрузка bind:
+```
+systemctl enable --now bind
+```
+Создаем прямую и обратную зону в /etc/bind/local.conf:
+
+![image](https://github.com/user-attachments/assets/6d2519d3-fd48-406a-a24c-d1d5f00049db)
+
+Копируем дефолты:
+```
+cp /etc/bind/zone/{localhost,au.db}
+cp /etc/bind/zone/127.in-addr.arpa /etc/bind/zone/192.168.11.in-addr.arpa.db
+cp /etc/bind/zone/127.in-addr.arpa /etc/bind/zone/192.168.33.in-addr.arpa.db
+```
+Назначаем права:
+```
+chown root:named /etc/bind/zone/au.db
+chown root:named /etc/bind/zone/192.168.11.in-addr.arpa.db
+chown root:named /etc/bind/zone/192.168.33.in-addr.arpa.db
+```
+Настраиваем зону прямого просмотра /etc/bind/zone/au.db:
+
+![image](https://github.com/user-attachments/assets/31341ea1-0c81-4e8d-82d9-3536aee8518e)
+
+Настраиваем зону обратного просмотра /etc/bind/zone/192.168.11.in-addr.arpa.db:
+
+![image](https://github.com/user-attachments/assets/b29f9656-58d6-43d6-aeba-63565b22b234)
+
+Настраиваем зону обратного просмотра /etc/bind/zone/192.168.33.in-addr.arpa.db:
+
+![image](https://github.com/user-attachments/assets/51946b83-8d91-40aa-96cf-27adb060f8ec)
+
+
+</details>
