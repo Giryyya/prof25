@@ -295,7 +295,8 @@ systemctl enable --now bind
 ```
 Создаем прямую и обратную зону в /etc/bind/local.conf:
 
-![image](https://github.com/user-attachments/assets/6d2519d3-fd48-406a-a24c-d1d5f00049db)
+![image](https://github.com/user-attachments/assets/19deb585-01fb-4e73-8647-f27c50027054)
+
 
 Копируем дефолты:
 ```
@@ -320,6 +321,14 @@ chown root:named /etc/bind/zone/192.168.33.in-addr.arpa.db
 Настраиваем зону обратного просмотра /etc/bind/zone/192.168.33.in-addr.arpa.db:
 
 ![image](https://github.com/user-attachments/assets/51946b83-8d91-40aa-96cf-27adb060f8ec)
+
+Проверяем зоны:
+```
+named-checkconf -z
+```
+
+![image](https://github.com/user-attachments/assets/accf29f3-8684-4295-a4a7-c4c25ec49010)
+
 
 
 </details>
