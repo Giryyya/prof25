@@ -24,8 +24,8 @@
 | SRV1-HQ | Альт Сервер 10 | srv1-hq.au.team |
 | CLI-HQ | Альт рабочая станция 10 | cli-hq.au.team |
 | CLI | Альт рабочая станция 10 | cli |
-## 1. Базовая настройка
 ### R-HQ R-DT
+## Базовая настройка
 # Настройка адаптеров
   <details>
     <summary>НАЖМИ</summary>
@@ -102,7 +102,7 @@ sshuser ALL=(ALL) NOPASSWD: ALL
 
   </details>
 
-# Настройка динамической трансляции адресов
+## Настройка динамической трансляции адресов
   <details>
     <summary>НАЖМИ</summary>
     
@@ -143,4 +143,12 @@ systemctl enable iptables-restore.service
 systemctl start iptables-restore.service
 ```
 
-  </details>
+</details>
+
+## Настройка протокола динамической конфигурации хостов
+<details>
+    <summary>НАЖМИ</summary>
+    
+
+
+</details>
