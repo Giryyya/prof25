@@ -24,9 +24,9 @@
 | SRV1-HQ | Альт Сервер 10 | srv1-hq.au.team |
 | CLI-HQ | Альт рабочая станция 10 | cli-hq.au.team |
 | CLI | Альт рабочая станция 10 | cli |
-### R-HQ R-DT
-## Базовая настройка
-# Настройка адаптеров
+# R-HQ R-DT
+# Базовая настройка
+## Настройка адаптеров
   <details>
     <summary>НАЖМИ</summary>
 
@@ -79,7 +79,7 @@ systemctl enable network-restart.timer
 
   </details>
   
-# Созданаие пользователя
+## Созданаие пользователя
   <details>
     <summary>НАЖМИ</summary>
     
