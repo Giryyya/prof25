@@ -148,7 +148,28 @@ systemctl start iptables-restore.service
 ## Настройка протокола динамической конфигурации хостов
 <details>
     <summary>НАЖМИ</summary>
-    
+Для начала укажем сетевой интерфейс, через который будет работать DHCP-сервер:
+```
+vim /etc/sysconfig/dhcpd
+```
+![image](https://github.com/user-attachments/assets/db8ed7d5-0088-4872-929e-0a6e904ca657)
+
+В папке /etc/dhcp/ необходимо создать файл dhcpd.conf:
+```
+cp dhcpd.conf.example dhcpd.conf
+```
+Отредактируйте файл dhcpd.conf следующим образом:
+
+![image](https://github.com/user-attachments/assets/c96ecbb5-faae-4fb4-a9cb-89e5ded75565)
+
+Перезагружаем службу:
+```
+systemctl restart dhcpd
+```
+
+Чтобы служба включалась после перезапуска устройства можно добавить ее в systemd юнит следующим образом(редактируется служба network-restart.service):
+
+![image](https://github.com/user-attachments/assets/e929cbfd-2d7e-49c1-9a27-db636dfb165c)
 
 
 </details>
