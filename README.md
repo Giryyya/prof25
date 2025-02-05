@@ -148,6 +148,7 @@ systemctl start iptables-restore.service
 ## Настройка протокола динамической конфигурации хостов
 <details>
     <summary>НАЖМИ</summary>
+  
   Для начала укажем сетевой интерфейс, через который будет работать DHCP-сервер:
 ```
 vim /etc/sysconfig/dhcpd
