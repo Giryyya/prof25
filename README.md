@@ -213,7 +213,7 @@ systemctl restart network
 
 </details>
 
-## Настройка динамической марршутизации OSPF
+## Настройка динамической маршутизации OSPF
 <details>
     <summary>НАЖМИ</summary>
 
