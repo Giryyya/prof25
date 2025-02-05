@@ -276,6 +276,7 @@ systemctl start ospfd zebra
 <details>
     <summary>НАЖМИ</summary>
 
+### R-HQ
 Для начала необходимо отредактировать файл /etc/bind/options.conf:
 ```
 listen-on { any; };
@@ -329,6 +330,36 @@ named-checkconf -z
 
 ![image](https://github.com/user-attachments/assets/accf29f3-8684-4295-a4a7-c4c25ec49010)
 
+### R-DT
+Конфиг
+```
+vim /etc/bind/options.conf
+```
 
+![image](https://github.com/abdurrah1m/Professionals_2024/assets/148451230/e90d49ce-6735-4fdb-b44a-0b1c62b8305a)
+
+Добавляем зоны
+
+![image](https://github.com/user-attachments/assets/6bef0528-ecd4-40fb-8065-9e1831b0c0d9)
+
+
+Резолв `/etc/net/ifaces/ens33/resolv.conf`:
+```
+search au.team
+nameserver 192.168.11.254
+nameserver 192.168.33.254
+```
+Перезапуск адаптера:
+```
+systemctl restart network
+```
+Автозагрузка:
+```
+systemctl enable --now bind
+```
+SLAVE:
+```
+control bind-slave enabled
+```
 
 </details>
