@@ -276,7 +276,7 @@ systemctl start ospfd zebra
 <details>
     <summary>НАЖМИ</summary>
 
-### R-HQ
+### SRV1-HQ
 Для начала необходимо отредактировать файл /etc/bind/options.conf:
 ```
 listen-on { any; };
@@ -296,32 +296,31 @@ systemctl enable --now bind
 ```
 Создаем прямую и обратную зону в /etc/bind/local.conf:
 
-![image](https://github.com/user-attachments/assets/19deb585-01fb-4e73-8647-f27c50027054)
-
+![image](https://github.com/user-attachments/assets/e2363b2a-676e-4b05-aabd-22fd82610b84)
 
 Копируем дефолты:
 ```
 cp /etc/bind/zone/{localhost,au.db}
-cp /etc/bind/zone/127.in-addr.arpa /etc/bind/zone/192.168.11.in-addr.arpa.db
-cp /etc/bind/zone/127.in-addr.arpa /etc/bind/zone/192.168.33.in-addr.arpa.db
+cp /etc/bind/zone/127.in-addr.arpa /etc/bind/zone/11.168.192.in-addr.arpa.db
+cp /etc/bind/zone/127.in-addr.arpa /etc/bind/zone/33.168.192.in-addr.arpa.db
 ```
 Назначаем права:
 ```
 chown root:named /etc/bind/zone/au.db
-chown root:named /etc/bind/zone/192.168.11.in-addr.arpa.db
-chown root:named /etc/bind/zone/192.168.33.in-addr.arpa.db
+chown root:named /etc/bind/zone/11.168.192.in-addr.arpa.db
+chown root:named /etc/bind/zone/33.168.192.in-addr.arpa.db
 ```
 Настраиваем зону прямого просмотра /etc/bind/zone/au.db:
 
-![image](https://github.com/user-attachments/assets/31341ea1-0c81-4e8d-82d9-3536aee8518e)
+![image](https://github.com/user-attachments/assets/a19e12c8-f4b8-4fbe-b3b7-03db2661374a)
 
-Настраиваем зону обратного просмотра /etc/bind/zone/192.168.11.in-addr.arpa.db:
+Настраиваем зону обратного просмотра /etc/bind/zone/11.168.192.in-addr.arpa.db:
 
-![image](https://github.com/user-attachments/assets/b29f9656-58d6-43d6-aeba-63565b22b234)
+![image](https://github.com/user-attachments/assets/dabffe3f-e53e-482b-99d7-965558bb529d)
 
-Настраиваем зону обратного просмотра /etc/bind/zone/192.168.33.in-addr.arpa.db:
+Настраиваем зону обратного просмотра /etc/bind/zone/33.168.192.in-addr.arpa.db:
 
-![image](https://github.com/user-attachments/assets/51946b83-8d91-40aa-96cf-27adb060f8ec)
+![image](https://github.com/user-attachments/assets/1fb3f96e-11ab-4d50-b964-1cd835737882)
 
 Проверяем зоны:
 ```
@@ -330,7 +329,7 @@ named-checkconf -z
 
 ![image](https://github.com/user-attachments/assets/accf29f3-8684-4295-a4a7-c4c25ec49010)
 
-### R-DT
+### SRV1-DT
 Конфиг
 ```
 vim /etc/bind/options.conf
@@ -340,8 +339,7 @@ vim /etc/bind/options.conf
 
 Добавляем зоны
 
-![image](https://github.com/user-attachments/assets/6bef0528-ecd4-40fb-8065-9e1831b0c0d9)
-
+![image](https://github.com/user-attachments/assets/d56f5eab-0717-4cdb-b4f3-67fe0e46345c)
 
 Резолв `/etc/net/ifaces/ens33/resolv.conf`:
 ```
