@@ -28,7 +28,7 @@
 ### R-HQ R-DT
 # Настройка адаптеров
   <details>
-    <summary>КЛИК</summary>
+    <summary>НАЖМИ</summary>
 
 Для того чтобы посмотреть какие адаптеры подключены к устройству прописываем:
 ```
@@ -81,7 +81,7 @@ systemctl enable network-restart.timer
   
 # Созданаие пользователя
   <details>
-    <summary>КЛИК</summary>
+    <summary>НАЖМИ</summary>
     
 Для того чтобы создать пользователя прописываем:
 ```
@@ -100,5 +100,47 @@ usermod -aG wheel sshuser
 sshuser ALL=(ALL) NOPASSWD: ALL
 ```
 
+  </details>
+
+# Настройка динамической трансляции адресов
+  <details>
+    <summary>НАЖМИ</summary>
+    
+Откройте файл /etc/sysctl.conf и добавьте строку:
+```
+net.ipv4.ip_forward=1
+```
+Отредактируйте строчку в файле /etc/net/sysctl.conf:
+```
+net.ipv4.ip_forward=1
+```
+Пропишите команду для настройки динамической трансляции адресов:
+```
+iptables -t nat -A POSTROUTING -o ens37 -j MASQUERADE
+sysctl -p
+```
+Далее необходимо сохранить настройки:
+```
+mkdir /etc/iptables
+iptables-save>/etc/iptables/rules.v4
+```
+Для того чтобы после перезагрузки роутера не сбрасывались настройки необходимо прописать systemd-юнит iptables-restore.service:
+```
+[Unit]
+Description=Restore iptables rules
+Before=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/iptables-restore /etc/iptables/rules.v4
+
+[Install]
+WantedBy=multi-user.target
+```
+Далее необходимо включить юнит:
+```
+systemctl enable iptables-restore.service
+systemctl start iptables-restore.service
+```
 
   </details>
