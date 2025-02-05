@@ -188,13 +188,73 @@ mkdir /etc/net/ifaces/tun1
 ![image](https://github.com/user-attachments/assets/e6e0a7c4-6e93-4d32-a328-1d0949e78c63)
 
 Здесь TUNLOCAL - IP адресс адаптера с NAT на настраиваемом роутере, TUNREMOTE на другом роутере.
-Задаем IP адресс:
+
+Задаем IP адрес:
 ```
 echo 10.10.10.1/30 > /etc/net/ifaces/tun1/ipv4address
 ```
 Перезагружаем сеть:
 ```
 systemctl restart network
+```
+
+</details>
+
+## Настройка динамической марршутизации OSPF
+<details>
+    <summary>НАЖМИ</summary>
+
+Устаналиваем пакет quagga:
+```
+apt-get install quagga
+```
+Редактируем файл /etc/quagga/ospfd.conf следующим образом:
+
+![image](https://github.com/user-attachments/assets/16e7fa71-9dd3-4db0-b3b8-d2a8c66ebe67)
+
+Редактируем файл /etc/quagga/zebra.conf следующим образом:
+
+![image](https://github.com/user-attachments/assets/2ac82a2c-ee19-49a9-9f70-290c658b7164)
+
+Включаем ospfd и zebra:
+```
+systemctl start ospfd zebra
+```
+Проверяем туннель:
+```
+vtysh -c "show ip ospf neighbor"
+```
+Для того чтобы сохранить настройки и добавить ospfd и zebra в автозагрузку необходимо создать unit-файлы:
+
+  Создайте файл /etc/systemd/system/ospfd.service:
+  ```
+[Unit]
+Description=Open Shortest Path First daemon
+
+[Service]
+ExecStart=/usr/sbin/ospfd
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+И файл /etc/systemd/system/zebra.service:
+```
+[Unit]
+Description=Zebra daemon
+
+[Service]
+ExecStart=/usr/sbin/zebra
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+Необходимо запустить службы:
+```
+systemctl daemon-reload
+systemctl enable ospfd zebra
+systemctl start ospfd zebra
 ```
 
 </details>
