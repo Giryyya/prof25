@@ -174,3 +174,27 @@ systemctl restart dhcpd
 
 
 </details>
+
+## Настройка GRE туннеля
+<details>
+    <summary>НАЖМИ</summary>
+
+ Создаем директорию для туннеля:
+ ```
+mkdir /etc/net/ifaces/tun1
+```
+Редактируем файл options следующим образом:
+
+![image](https://github.com/user-attachments/assets/e6e0a7c4-6e93-4d32-a328-1d0949e78c63)
+
+Здесь TUNLOCAL - IP адресс адаптера с NAT на настраиваемом роутере, TUNREMOTE на другом роутере.
+Задаем IP адресс:
+```
+echo 10.10.10.1/30 > /etc/net/ifaces/tun1/ipv4address
+```
+Перезагружаем сеть:
+```
+systemctl restart network
+```
+
+</details>
