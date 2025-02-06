@@ -361,3 +361,57 @@ control bind-slave enabled
 ```
 
 </details>
+
+## Настройка синхронизации времени между сетевыми устройствами по протоколу NTP. 
+  <details>
+    <summary>НАЖМИ</summary>
+    
+Установка chrony:
+```
+apt-get install chrony
+```
+Редактируем конфиг /etc/chrony.conf:
+```
+server ntp2.vniiftri.ru iburst
+allow 192.168.11.0/24
+allow 192.168.33.0/24
+local stratum 5
+```
+Запускаем chrony:
+```
+systemctl enable chronyd
+systemctl start chronyd
+```
+Если успешно то вывод chronyc sources будет следующим:
+
+![image](https://github.com/user-attachments/assets/ef643891-3879-4a21-a0a1-6a06d7339222)
+
+На клиентах в конфиге редактируем:
+```
+server 192.168.11.254 iburst
+```
+chronyc source:
+
+![image](https://github.com/user-attachments/assets/d19babd1-5d37-4e95-bae0-ecffbae41aee)
+
+Альтернативно можно настроить через NTP:
+```
+apt-get install ntp
+vim /etc/ntp.conf
+```
+Указываем:
+```
+server 127.127.1.0
+server ntp2.vniiftri.ru iburst
+fudge 127.127.1.0 stratum 5
+restrict 192.168.11.0 mask 255.255.255.0 nomodify notrap
+restrict 192.168.33.0 mask 255.255.255.0 nomodify notrap
+```
+Запускаем и проверяем:
+```
+systemctl enable ntp
+systemctl start ntp
+ntpq -p
+```
+
+ </details>
