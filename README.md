@@ -430,5 +430,82 @@ apt-get install samba samba-dc
 rm /etc/samba/smb.conf
 samba-tool domain provision --use-rfc2307 --interactive
 ```
+Настройка BIND9_DLZ:
+```
+vim /etc/bind/named.conf.local
+```
+Вставляем:
+```
+dlz "AD DNS Zone" {
+  database "dlopen /usr/lib/x86_64-linux-gnu/samba/bind9/dlz_bind9.so";
+};
+```
+Создаем группы:
+```
+samba-tool group add group1
+samba-tool group add group2
+samba-tool group add group3
+```
+Создаем пользователей:
+```
+for i in {1..30}; do
+    samba-tool user create user$i P@ssw0rd
+    if [ $i -le 10 ]; then
+        samba-tool group addmembers group1 user$i
+    elif [ $i -le 20 ]; then
+        samba-tool group addmembers group2 user$i
+    else
+        samba-tool group addmembers group3 user$i
+    fi
+done
+```
+Создаем подразделения:
+```
+samba-tool ou create OU=CLI
+samba-tool ou create OU=ADMIN
+```
+Добавляем зоны обратного просмотра:
+```
+samba-tool dns zonecreate 127.0.0.1 11.168.192.in-addr.arpa -U administrator
+samba-tool dns zonecreate 127.0.0.1 33.168.192.in-addr.arpa -U administrator
+```
+Проверяем Kerberos (Если не будет подключаться):
+```
+vim /etc/krb5.conf
+```
+Редактирум:
+```
+[libdefaults]
+    default_realm = AU.TEAM
+    dns_lookup_kdc = true
+[realms]
+    AU.TEAM = {
+        kdc = srv1-hq.au.team
+        admin_server = srv1-hq.au.team
+    }
+[domain_realm]
+    .au.team = AU.TEAM
+    au.team = AU.TEAM
+```
+Получаем билет Kerberos:
+```
+kinit administrator@AU.TEAM
+klist
+```
+Добавляем устройства в домен:
+```
+apt-get update
+apt-get install samba samba-dc
+rm /etc/samba/smb.conf
+sudo samba-tool domain join au.team DC -U administrator
+```
+Помещаем компьютеры в подразделения:
+```
+samba-tool computer move ADMIN-DT OU=ADMIN
+samba-tool computer move CLI-DT OU=CLI
+samba-tool computer move ADMIN-HQ OU=ADMIN
+samba-tool computer move CLI-HQ OU=CLI
+```
+
 
  </details>
