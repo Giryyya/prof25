@@ -468,6 +468,7 @@ samba-tool ou create OU=ADMIN
 ```
 samba-tool dns zonecreate 127.0.0.1 11.168.192.in-addr.arpa -U administrator
 samba-tool dns zonecreate 127.0.0.1 33.168.192.in-addr.arpa -U administrator
+samba-tool dns zonelist 127.0.0.1 -U administrator
 ```
 Проверяем Kerberos (Если не будет подключаться):
 ```
