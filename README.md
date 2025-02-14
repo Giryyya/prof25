@@ -476,16 +476,16 @@ vim /etc/krb5.conf
 Редактирум:
 ```
 [libdefaults]
-    default_realm = AU.TEAM
-    dns_lookup_kdc = true
+ default_realm = AU.TEAM
+ dns_lookup_kdc = true
 [realms]
-    AU.TEAM = {
-        kdc = srv1-hq.au.team
-        admin_server = srv1-hq.au.team
-    }
+ AU.TEAM = {
+  kdc = srv1-hq.au.team
+  admin_server = srv1-hq.au.team
+ }
 [domain_realm]
-    .au.team = AU.TEAM
-    au.team = AU.TEAM
+ .au.team = AU.TEAM
+ au.team = AU.TEAM
 ```
 Получаем билет Kerberos:
 ```
