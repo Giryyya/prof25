@@ -420,10 +420,13 @@ ntpq -p
   <details>
     <summary>НАЖМИ</summary>
     
-Команды:
+Устанавливаем SAMBA:
 ```
 apt-get update
 apt-get install samba samba-dc
+```
+Создаем домен:
+```
 rm /etc/samba/smb.conf
 samba-tool domain provision --use-rfc2307 --interactive
 ```
