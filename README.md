@@ -506,6 +506,18 @@ samba-tool computer move CLI-DT OU=CLI
 samba-tool computer move ADMIN-HQ OU=ADMIN
 samba-tool computer move CLI-HQ OU=CLI
 ```
-
+Создаем общую папку:
+```
+sudo mkdir -p /opt/data/SAMBA
+sudo chmod -R 777 /opt/data/SAMBA
+```
+Редактируем /etc/samba/smb.conf:
+```
+[SAMBA]
+path = /opt/data/SAMBA
+read only = no
+browsable = yes
+valid users = @group1, @group2, @group3
+```
 
  </details>
