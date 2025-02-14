@@ -415,3 +415,17 @@ ntpq -p
 ```
 
  </details>
+
+## Настройка SAMBA 
+  <details>
+    <summary>НАЖМИ</summary>
+    
+Команды:
+```
+apt-get update
+apt-get install samba samba-dc
+rm /etc/samba/smb.conf
+samba-tool domain provision --use-rfc2307 --interactive
+```
+
+ </details>
