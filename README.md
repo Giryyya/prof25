@@ -522,3 +522,12 @@ valid users = @group1, @group2, @group3
 ```
 
  </details>
+
+# Часть 2
+
+## Управление доменом в ADMC
+<details>
+    <summary>НАЖМИ</summary>
+
+
+</details>
