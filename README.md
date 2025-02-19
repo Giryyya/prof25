@@ -513,6 +513,16 @@ path = /opt/data/SAMBA
 read only = no
 browsable = yes
 valid users = @group1, @group2, @group3
+hosts allow = 192.168.11.0/24 192.168.12.0/24
+```
+Проверяем доступность папки и подключаемся:
+```
+smbclient -L //srv1-hq -U user1
+smbclient //srv1-hq/SAMBA -U user1
+```
+Если не подключилась папка можно попробовать монтировать диск, но после перезагрузки он исчезнет
+```
+sudo mount -t cifs //srv1-hq/SAMBA /mnt/samba -o username=user1,password=P@ssw0rd
 ```
 
  </details>
@@ -522,6 +532,8 @@ valid users = @group1, @group2, @group3
 ## Управление доменом в ADMC
 <details>
     <summary>НАЖМИ</summary>
+    Делать все в конфигурации компьютера
+    Картинку можно разместить в папке клиента заранее и настроить политику на нее, потому что сетевые папки со старта компьютер не видит и фон не прогрузится.
 
 
 </details>
