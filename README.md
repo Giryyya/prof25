@@ -534,11 +534,84 @@ sudo mount -t cifs //srv1-hq/SAMBA /mnt/samba -o username=user1,password=P@ssw0r
     <summary>НАЖМИ</summary>
     Делать все в конфигурации компьютера.
 
-
-  
   Картинку можно разместить в папке клиента заранее и настроить политику на нее, потому что сетевые папки со старта компьютер не видит и фон не прогрузится.
     
-  
+</details>
 
+## Реализация бекапа общей папки на сервере SRV1-HQ с использованием systemctl
+<details>
+    <summary>НАЖМИ</summary>
+Создаем скрипт:
+  
+  ```
+  vim /usr/local/bin/backup.sh
+  ```
+  
+Cкрипт:
+  ```
+#!/bin/bash
+
+# Указываем путь к исходной папке и целевому каталогу для бэкапов
+SOURCE_DIR="/opt/data/SAMBA"
+BACKUP_DIR="/var/backups"
+DATE=$(date +"%Y-%m-%d_%H%M")
+
+# Проверяем наличие каталога для бэкапов
+if [ ! -d "$BACKUP_DIR" ]; then
+  mkdir -p "$BACKUP_DIR"
+fi
+
+# Выполняем архивацию
+tar -czf "${BACKUP_DIR}/backup_${DATE}.tar.gz" "$SOURCE_DIR"
+```
+
+Делаем скрипт исполняемым:
+```
+chmod +x /usr/local/bin/backup.sh
+```
+
+Создаем файл сервис:
+```
+vim /etc/systemd/system/backup.service
+```
+
+Файл:
+```
+[Unit]
+Description=Backup service for SAMBA shared folder
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/backup.sh
+
+[Install]
+WantedBy=multi-user.target
+```
+Создаем таймер:
+```
+vim /etc/systemd/system/backup.timer
+```
+
+Таймер:
+```
+[Unit]
+Description=Run backup daily at 8 PM
+
+[Timer]
+OnCalendar=20:00
+Persistent=true
+Unit=backup.service
+
+[Install]
+WantedBy=timers.target
+```
+
+Запускаем службы:
+```
+systemctl daemon-reload
+systemctl enable backup.service backup.timer
+systemctl start backup.service backup.timer
+```
 
 </details>
