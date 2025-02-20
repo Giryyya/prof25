@@ -615,3 +615,70 @@ systemctl start backup.service backup.timer
 ```
 
 </details>
+
+## Развертывание приложений в Docker на SRV2-DT
+<details>
+    <summary>НАЖМИ</summary>
+
+### Пока не работает
+Устанавливаем если не установлен:
+```
+apt-get update
+apt-get install docker-ce
+```
+
+Запускаем локальный docker registry:
+```
+docker run -d -p 5000:5000 --restart=always --name registry registry:2
+docker ps
+```
+
+Создаем директорию для WEB:
+```
+mkdir ~/web-app
+cd ~/web-app
+```
+
+Создаем index.html
+```
+vim index.html
+```
+
+Файл:
+```
+<html>
+    <body>
+        <center><h1><b>WEB</b></h1></center>
+    </body>
+</html>
+```
+
+Создаем dockerfile:
+```
+vim Dockerfile
+```
+
+Файл:
+```
+FROM nginx:alpine
+
+COPY index.html /usr/share/nginx/html/index.html
+
+EXPOSE 80
+```
+
+Собираем и загружаем образ в локальный Registry:
+```
+docker build -t localhost:5000/web:1.0 .
+docker push localhost:5000/web:1.0
+curl http://localhost:5000/v2/_catalog
+```
+
+Запускаем:
+```
+docker run -d --name web -p 80:80 --restart=always localhost:5000/web:1.0
+docker ps
+```
+
+</details>
+
