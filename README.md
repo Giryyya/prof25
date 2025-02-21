@@ -86,7 +86,7 @@ systemctl enable network-restart.timer
 
   </details>
   
-## Созданаие пользователя
+## Создание пользователя
   <details>
     <summary>НАЖМИ</summary>
     
@@ -356,7 +356,7 @@ control bind-slave enabled
 
 </details>
 
-## Настройка синхронизации времени между сетевыми устройствами по протоколу NTP. 
+## Настройка синхронизации времени между сетевыми устройствами по протоколу NTP
   <details>
     <summary>НАЖМИ</summary>
     
