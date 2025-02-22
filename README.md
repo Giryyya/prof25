@@ -744,6 +744,12 @@ GRANT ALL PRIVILEGES ON DATABASE zabbix TO zabbix;
 
 Импортируем схему Zabbix в бд:
 ```
+sudo wget https://cdn.zabbix.com/zabbix/sources/stable/6.4/zabbix-6.4.0.tar.gz
+sudo tar -xvzf zabbix-6.4.0.tar.gz
+sudo cd zabbix-6.4.0/database/postgresql/
+cat schema.sql | sudo -u zabbix psql zabbix
+cat images.sql | sudo -u zabbix psql zabbix
+cat data.sql | sudo -u zabbix psql zabbix
 zcat /usr/share/doc/zabbix-server-pgsql/create.sql.gz | sudo -u zabbix psql zabbix
 ```
 
