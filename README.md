@@ -706,6 +706,65 @@ docker run -d --name web -p 8080:80 --restart=always localhost:5000/web:1.0
 
 ![image](https://github.com/user-attachments/assets/21efa5a5-fcfd-4c22-94b1-a0f0f33a7054)
 
-
 </details>
 
+## Настройка системы централизованного мониторинга
+<details>
+    <summary>НАЖМИ</summary>
+  
+Устанавливаем пакеты:
+```
+apt-get update
+apt-get install postgresql17 apache2 zabbix-server-pgsql postgresql17-server postgresql17-server-devel zabbix-agent
+```
+
+Инициализируем БД:
+```
+sudo -u postgres initdb -D /var/lib/pgsql/data
+```
+
+Запускаем Postgresql:
+```
+systemctl start postgresql
+systemctl enable postgresql
+```
+
+Подключаемся к Postgresql:
+```
+sudo -u postgres psql
+```
+
+Создаем БД и юзера:
+```
+CREATE DATABASE zabbix;
+CREATE USER zabbix WITH PASSWORD 'zabbixpwd';
+GRANT ALL PRIVILEGES ON DATABASE zabbix TO zabbix;
+\q
+```
+
+Импортируем схему Zabbix в бд:
+```
+zcat /usr/share/doc/zabbix-server-pgsql/create.sql.gz | sudo -u zabbix psql zabbix
+```
+
+Проверяем БД и юзера:
+```
+sudo -u postgres psql -c "\l"
+sudo -u postgres psql -d zabbix -U zabbix -W
+```
+
+Редактируем конфиг Zabbix Server - /etc/zabbix/zabbix_server.conf:
+```
+DBHost=localhost
+DBName=zabbix
+DBUser=zabbix
+DBPassword=zabbixpwd
+```
+
+Запускаем Zabbix:
+```
+sudo systemctl start zabbix_pgsql
+sudo systemctl enable zabbix_pgsql
+```
+
+</details>
