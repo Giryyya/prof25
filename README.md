@@ -715,7 +715,7 @@ docker run -d --name web -p 8080:80 --restart=always localhost:5000/web:1.0
 Устанавливаем пакеты:
 ```
 apt-get update
-apt-get install postgresql17 apache2 zabbix-server-pgsql postgresql17-server postgresql17-server-devel zabbix-agent
+apt-get install postgresql17 postgresql17-contrib apache2 zabbix-server-pgsql postgresql17-server postgresql17-server-devel zabbix-agent
 ```
 
 Инициализируем БД:
@@ -744,9 +744,10 @@ GRANT ALL PRIVILEGES ON DATABASE zabbix TO zabbix;
 
 Импортируем схему Zabbix в бд:
 ```
-sudo wget https://cdn.zabbix.com/zabbix/sources/stable/6.4/zabbix-6.4.0.tar.gz
-sudo tar -xvzf zabbix-6.4.0.tar.gz
-sudo cd zabbix-6.4.0/database/postgresql/
+rpm -q zabbix-server-pgsql
+sudo wget https://cdn.zabbix.com/zabbix/sources/stable/7.0/zabbix-7.0.9.tar.gz
+sudo tar -xvzf zabbix-7.0.9.tar.gz
+sudo cd zabbix-7.0.9/database/postgresql/
 cat schema.sql | sudo -u zabbix psql zabbix
 cat images.sql | sudo -u zabbix psql zabbix
 cat data.sql | sudo -u zabbix psql zabbix
@@ -765,6 +766,35 @@ DBHost=localhost
 DBName=zabbix
 DBUser=zabbix
 DBPassword=zabbixpwd
+```
+
+Создаем конфиг Zabbix:
+```
+cd /etc/httpd2/conf/addon.d
+vim A.zabbix.conf
+```
+
+конфиг:
+```
+<VirtualHost *:80>
+    DocumentRoot /usr/share/zabbix
+    <Directory /usr/share/zabbix>
+        Options Indexes FollowSymLinks
+        AllowOverride None
+        Require all granted
+    </Directory>
+</VirtualHost>
+```
+
+Настраиваем часовой пояс:
+```
+cd /etc/php/8.2/apache2-mod_php
+sudo pluma php.ini
+```
+
+Редактируем:
+```
+date.timezone = Europe/Moscow
 ```
 
 Запускаем Zabbix:
