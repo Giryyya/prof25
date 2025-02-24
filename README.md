@@ -92,7 +92,7 @@ systemctl enable network-restart.timer
     
 Для того чтобы создать пользователя прописываем:
 ```
-adduser sshuser
+useradd sshuser
 ```
 Задаем пароль:
 ```
