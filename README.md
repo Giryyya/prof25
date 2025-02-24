@@ -712,6 +712,8 @@ docker run -d --name web -p 8080:80 --restart=always localhost:5000/web:1.0
 <details>
     <summary>НАЖМИ</summary>
   
+### Не работает 
+
 Устанавливаем пакеты:
 ```
 apt-get update
@@ -802,5 +804,64 @@ date.timezone = Europe/Moscow
 sudo systemctl start zabbix_pgsql
 sudo systemctl enable zabbix_pgsql
 ```
+
+</details>
+
+
+## Настройка веб-сервера nginx как обратного прокси-сервера на SRV1-DT
+<details>
+    <summary>НАЖМИ</summary>
+
+Устанавливаем nginx:
+```
+sudo apt update
+sudo apt install nginx
+```
+
+Создаем конфиг для www.au.team:
+```
+sudo vim /etc/nginx/sites-available/www.au.team
+```
+
+Конфиг:
+```
+server {
+    listen 80;
+    server_name www.au.team;
+
+    location / {
+        proxy_pass http://192.168.33.253:8080;  
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+Включаем:
+```
+sudo ln -s /etc/nginx/sites-available.d/www.au.team /etc/nginx/sites-enabled.d/
+```
+
+Проверяем конфиг nginx:
+```
+sudo nginx -t
+```
+
+Перезапускаем:
+```
+sudo systemctl restart nginx
+```
+
+На dns сервере необходимо создать запись:
+```
+sudo samba-tool dns add 127.0.0.1 au.team www A 192.168.33.253 -U administrator
+```
+
+### Работает через 8080 порт 
+
+![image](https://github.com/user-attachments/assets/e8e65473-022f-44e6-9670-421ae9e3a969)
+
 
 </details>
