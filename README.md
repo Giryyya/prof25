@@ -43,7 +43,7 @@ ip link show
 ```
 Далее необходимо создать директорию по пути
 ```
-mkdir /etc/net/ifaces/
+mkdir /etc/net/ifaces/ не забываем про ivp4address
 ```
 1) На адаптере для локальной сети файл "options" должен выглядить так:
    
