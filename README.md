@@ -128,6 +128,12 @@ sysctl -p
 (доп команда кирилл забыл) sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 sudo iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT
 ```
+Внимание анекдот:
+
+![image](https://github.com/user-attachments/assets/10858787-9ea5-41a1-ad2a-0f099a2f7890)
+
+<img src="https://github.com/user-attachments/assets/c534e23e-e5d6-4d3d-a25e-c3f6a0f12d50" width="200" height="280">
+
 Далее необходимо сохранить настройки:
 ```
 mkdir /etc/iptables
@@ -206,6 +212,8 @@ echo 10.10.10.1/30 > /etc/net/ifaces/tun1/ipv4address
 ```
 systemctl restart network
 ```
+
+<img src="https://github.com/user-attachments/assets/40e8bac2-ccd8-482b-aca8-65bd580306ef" width="200" height="280">
 
 </details>
 
