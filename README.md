@@ -548,6 +548,14 @@ sudo mount -t cifs //srv1-hq/SAMBA /mnt/samba -o username=user1,password=P@ssw0r
 
 ![ИТ Колледж_ЛОГОТИП](https://github.com/user-attachments/assets/e1c09cd8-47fa-4b55-878b-6e547d65610c)
 
+
+Чтобы применить на пользователях GP:
+```
+apt-get update
+apt-get install gpupdate
+sudo gpupdate-setup enable
+```
+
 </details>
 
 ## Реализация бекапа общей папки на сервере SRV1-HQ с использованием systemctl
