@@ -213,8 +213,6 @@ echo 10.10.10.1/30 > /etc/net/ifaces/tun1/ipv4address
 systemctl restart network
 ```
 
-<img src="https://github.com/user-attachments/assets/40e8bac2-ccd8-482b-aca8-65bd580306ef" width="200" height="280">
-
 </details>
 
 ## Настройка динамической маршутизации OSPF
